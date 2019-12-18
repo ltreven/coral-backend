@@ -1,6 +1,8 @@
 const createError = require('http-errors');
 const express = require('express');
 const passport = require('passport');
+const morgan = require('morgan');
+const logger = require('./config/winston');
 const peopleRouter = require('./routes/peopleRouter');
 const usersRouter = require('./routes/usersRouter');
 
@@ -12,14 +14,10 @@ const app = express();
 // view engine setup (Jade)
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
-
-//app.use(logger('combined')); >> another option >> understand better about morgan...
-//app.use(logger('dev'));
+app.use(morgan("combined", { "stream": logger.stream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
-//app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/v1/people', peopleRouter);
 app.use('/v1/users', usersRouter);

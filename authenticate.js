@@ -4,7 +4,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const FacebookTokenStrategy = require('passport-facebook-token');
 const jwt = require('jsonwebtoken');
-const debug = require('debug')('coral-backend:userRouter');
+const logger = require('./config/winston');
 const User = require('./models/users');
 const config = require('./config/config');
 
@@ -19,7 +19,7 @@ passport.deserializeUser(function(user, done) {
 
 exports.getToken = function(user) {
     const token = jwt.sign(user, config.security.secretKey, { expiresIn: 3600});
-    debug('getToken: ', token);
+    logger.info('getToken: ', token);
     return token;
 };
 
@@ -28,7 +28,7 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = config.security.secretKey;
 
 exports.jwtPassport = passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-    debug("JWT_PAYLOAD: ", jwt_payload);
+    logger.info("JWT_PAYLOAD: ", jwt_payload);
     User.findOne({ _id: jwt_payload._id }, (err, user) => {
         if (err) {
             return done(err, false);
@@ -46,7 +46,7 @@ exports.facebookPassport = passport.use(new FacebookTokenStrategy({
     clientID: config.security.facebook.clientId,
     clientSecret: config.security.facebook.clientSecret
     }, (accessToken, refreshToken, profile, done) => {
-        debug('find user');
+        logger.info('find user');
         User.findOne({ facebookId: profile.id}, (err, user) => {
             if (err) {
                 return done(err, false);
@@ -55,7 +55,7 @@ exports.facebookPassport = passport.use(new FacebookTokenStrategy({
                 return done(null, user);
             } else {
                 // user does not exit
-                debug('creating user!', profile.id, profile.name.givenName, profile.name.familyName);
+                logger.info('creating user!', profile.id, profile.name.givenName, profile.name.familyName);
                 var newuser = new User({ userName: profile.displayName});
                 newuser.facebookId = profile.id;
                 newuser.userName = profile.id;
