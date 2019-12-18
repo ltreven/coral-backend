@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const logger = require('./config/winston');
 const peopleRouter = require('./routes/peopleRouter');
 const usersRouter = require('./routes/usersRouter');
+const propertiesRouter = require('./routes/propertiesRouter');
 
 //var cookieParser = require('cookie-parser');
 //var logger = require('morgan');
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
 app.use('/v1/people', peopleRouter);
+app.use('/v1/properties', propertiesRouter);
 app.use('/v1/users', usersRouter);
 
 // catch 404 and forward to error handler
