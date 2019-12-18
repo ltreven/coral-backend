@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const passport = require('passport');
 const peopleRouter = require('./routes/peopleRouter');
 const usersRouter = require('./routes/usersRouter');
 
@@ -16,6 +17,7 @@ const app = express();
 //app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(passport.initialize());
 //app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
@@ -28,16 +30,15 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.setHeader('Content-Type', 'application/json');
-  res.json(err);
-res.render('error');
-});
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.setHeader('Content-Type', 'application/json');
+//   res.json(err);
+// });
 
 module.exports = app;

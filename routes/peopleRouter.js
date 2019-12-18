@@ -82,6 +82,7 @@ router.route('/:personId')
 })
 .delete(authenticate.verifyUser, (req, res, next) => {
     debug('Routing DELETE people/:personId', req.params.personId);
+    // enhancement needed: do not DELETE physically. Create logical deletion
     People.findByIdAndRemove(req.params.personId)
     .then((resp) => {
         res.statusCode = 200;

@@ -27,6 +27,10 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 const connect = mongoose.connect(config.dbSettings.mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
