@@ -1,13 +1,12 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
+const createError = require('http-errors');
+const express = require('express');
+const peopleRouter = require('./routes/peopleRouter');
+const usersRouter = require('./routes/usersRouter');
+
 //var cookieParser = require('cookie-parser');
 //var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var peopleRouter = require('./routes/peopleRouter');
-
-var app = express();
+const app = express();
 
 // view engine setup (Jade)
 //app.set('views', path.join(__dirname, 'views'));
@@ -36,7 +35,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.setHeader('Content-Type', 'application/json');
+  res.json(err);
+res.render('error');
 });
 
 module.exports = app;

@@ -1,11 +1,11 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('./models/users');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const jwt = require('jsonwebtoken');
-const config = require('./config');
 const FacebookTokenStrategy = require('passport-facebook-token');
+const jwt = require('jsonwebtoken');
+const User = require('./models/users');
+const config = require('./config/config');
 
 exports.local = passport.use(new LocalStrategy(User.authenticate()));
 //passport.serializeUser(User.serializeUser());
@@ -19,14 +19,14 @@ passport.serializeUser(function(user, done) {
   });
 
 exports.getToken = function(user) {
-    const token = jwt.sign(user, config.secretKey, { expiresIn: 3600});
+    const token = jwt.sign(user, config.security.secretKey, { expiresIn: 3600});
     console.log('getToken: ', token);
     return token;
 };
 
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = config.secretKey;
+opts.secretOrKey = config.security.secretKey;
 
 exports.jwtPassport = passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
     console.log("JWT_PAYLOAD: ", jwt_payload);
@@ -44,8 +44,8 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts, (jwt_payload, done) => 
 exports.verifyUser = passport.authenticate('jwt', {session: false});
 
 exports.facebookPassport = passport.use(new FacebookTokenStrategy({
-    clientID: config.facebook.clientId,
-    clientSecret: config.facebook.clientSecret
+    clientID: config.security.facebook.clientId,
+    clientSecret: config.security.facebook.clientSecret
     }, (accessToken, refreshToken, profile, done) => {
         console.log('find user');
         User.findOne({ facebookId: profile.id}, (err, user) => {

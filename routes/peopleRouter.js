@@ -46,7 +46,7 @@ router.route('/')
     res.end('DELETE operation not supported');
 });
 
-promoRouter.route('/:personId')
+router.route('/:personId')
 .all((req,res,next) => {
     debug('Routing people/:personId');
     res.statusCode = 200;

@@ -1,10 +1,15 @@
 exports.dbSettings = {
-  db: process.env.DB || 'sys',
-  user: process.env.DB_USER || 'ltn',
-  pass: process.env.DB_PASS || 'kito001',
-  server: process.env.DB_SERVER || '127.0.0.1:3306',
+  mongoUrl: 'mongodb://localhost:27017/mongotestdb'
 };
 
 exports.serverSettings = {
   port: process.env.PORT || 3000
+};
+
+exports.security = {
+  secretKey: '12345-67890-09876-54321',
+  facebook: {
+      clientId: '1034092406940238',
+      clientSecret: '883af7b00c8352e75df6a05d366dce99'
+    }
 };

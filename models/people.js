@@ -21,7 +21,11 @@ const schema = new mongoose.Schema({
         required: true,
         unique:true
     },
-    phone: {
+    phoneCountryId: {
+        type: String,
+        required: true,
+    },
+    phoneNumber: {
         type: String,
         required: true,
     }

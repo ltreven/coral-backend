@@ -27,7 +27,8 @@ router.route('/').all((req,res,next) => {
 })
 router.post('/signup', (req, res, next) => {
     debug('Routing POST SIGNUP - creates the user');
-    Users.register(new People({username: req.body.username}), 
+    console.log('Routing POST SIGNUP - creates the user');
+    Users.register(new Users({username: req.body.username}), 
                     req.body.password, (err, user) => {
         if (err) {
             debug('Could not create user');
@@ -48,6 +49,7 @@ router.post('/signup', (req, res, next) => {
 });
 router.get('/login', passport.authenticate('local'), (req, res) => {
     debug('Routing GET LOGIN - authenticates the user');
+    console.log('Routing GET LOGIN - authenticates the user');
     var token = authenticate.getToken({_id: req.user._id});
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');

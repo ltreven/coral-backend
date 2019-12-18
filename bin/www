@@ -6,6 +6,7 @@
 const app = require('../app');
 const debug = require('debug')('coral-backend:server');
 const http = require('http');
+const mongoose = require('mongoose');
 const config = require('../config/config');
 
 /**
@@ -25,6 +26,17 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+const connect = mongoose.connect(config.dbSettings.mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+connect.then((db) => {
+  //assert.equal(err, null);
+  console.log('connected to Mongo');
+});
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -82,4 +94,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('Listening on ', bind);
 }
