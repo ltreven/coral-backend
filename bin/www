@@ -31,16 +31,11 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-const connect = mongoose.connect(config.dbSettings.mongoUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
+const connect = mongoose.connect(config.dbSettings.mongoUrl);
 connect.then((db) => {
   //assert.equal(err, null);
-  console.log('connected to Mongo');
+  console.log('connected to Mongo. Db:', db);
 });
-
 
 /**
  * Normalize a port into a number, string, or false.
