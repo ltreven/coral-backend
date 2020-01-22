@@ -1,0 +1,22 @@
+version: '1'
+services:
+  coral-backend:
+    build:
+      context: .
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+    networks:
+      - coral-backend
+  mongo:
+    image: "mongo:latest"
+    container_name: coral-mongo-db
+    environment:
+      DATABASE: "coral-db"
+    ports:
+      - "27017:27017"
+    networks:
+      - coral-backend
+networks:
+  coral-backend:

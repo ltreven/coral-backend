@@ -12,7 +12,7 @@ const logger = require('../config/winston');
 /**
  * Get port from environment and store in Express.
  */
-const port = normalizePort(process.env.PORT || config.serverSettings.port);
+const port = normalizePort(config.serverSettings.port);
 app.set('port', port);
 
 /**

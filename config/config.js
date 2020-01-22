@@ -1,6 +1,6 @@
 exports.dbSettings = {
   //mongoUrl: 'mongodb://localhost:27017/mongotestdb'
-  mongoUrl: 'mongodb+srv://microsservices:dSW5oVdqAzaBupfw@coral-cluster-l11gm.mongodb.net/test?retryWrites=true&w=majority'
+  mongoUrl: process.env.DB_CONNECTION || 'mongodb+srv://microsservices:dSW5oVdqAzaBupfw@coral-cluster-l11gm.mongodb.net/test?retryWrites=true&w=majority'
 };
 
 exports.serverSettings = {

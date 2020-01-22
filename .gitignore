@@ -9,5 +9,6 @@ yarn-error.log*
 #dependencies
 #ignore node_modules - everybody should install dependencies before running on localhost
 node_modules/
+coral.code-workspace
 
 .DS_Store
