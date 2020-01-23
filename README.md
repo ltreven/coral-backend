@@ -1,20 +1,28 @@
-# Backend for Coral Rent Project
+## Backend for Coral Rent Project
 
-Developer onboarding - prepare env:
+### Requirements
 
-Install NPM
-Install Node
-Install docker
-Clone the repository
-Run "npm install""
+Coral Backend service exposes the API for Coral Rent front-end.
+It's a Node.js application. In order to start developing you have to install:
 
-To test:
-Run mongo with Docker:
+```
+npm
+node
+docker
+```
+### Install dependencies
+
+```
+npm install
 docker pull mongo
-docker run --name coral-db -p 27017:27017 -d mongo
+```
 
-Run coral-backend in test mode: 
+### Start on test mode (localhost)
+
+```
+docker run --name coral-db -p 27017:27017 -d mongo
 npm test
+```
 
 To make docker-compose work, you must replace on package.json:
     "test": "DB_CONNECTION=mongodb://localhost:27017/coral-db node ./bin/www"
