@@ -1,4 +1,4 @@
-version: '1'
+version: '3'
 services:
   coral-backend:
     build:
@@ -11,9 +11,10 @@ services:
       - coral-backend
   mongo:
     image: "mongo:latest"
-    container_name: coral-mongo-db
+    container_name: coral-db
     environment:
-      DATABASE: "coral-db"
+      - MONGODB_DATABASE=coral-db
+      - MONGO_INITDB_DATABASE=coral-db
     ports:
       - "27017:27017"
     networks:

@@ -1,8 +1,11 @@
 FROM node AS base
 
 WORKDIR /usr/src/app
-COPY . ./
+# Install app dependencies
+COPY package*.json ./
 RUN npm install
+# Copy app source code
+COPY . .
 
 EXPOSE 3000
 
