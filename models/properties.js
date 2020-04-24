@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({    
+const schema = new mongoose.Schema({
     type: String,
     rent: Number,
     size: Number,
@@ -20,6 +20,7 @@ const schema = new mongoose.Schema({
         latitude: Number,
         longitude: Number
     },
+    lift: Boolean,
     petfriendly: Boolean,
     furnitured: Boolean,
     nearMetroStation: Boolean,
@@ -28,8 +29,8 @@ const schema = new mongoose.Schema({
     imageURLs: { type: [String], index: true },
     ownerId: String
 }, {
-        timestamps: true
-    }
+    timestamps: true
+}
 );
 
 module.exports = mongoose.model('Property', schema);
