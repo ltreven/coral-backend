@@ -2,17 +2,28 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({    
     type: String,
-    value: Number,
+    rent: Number,
     size: Number,
-    rooms: Number,
+    bedrooms: Number,
     bathrooms: Number,
-    floor: String,
+    address: {
+        typeOfStreet: String,
+        streetName: String,
+        buildingNumber: String,
+        floorNumber: String,
+        doorNumber: String,
+        postalCode: String,
+        city: String,
+        province: String,
+        region: String,
+        country: String,
+        latitude: Number,
+        longitude: Number
+    },
     petfriendly: Boolean,
     furnitured: Boolean,
     nearMetroStation: Boolean,
     description: String,
-    latitude: Number,
-    longitude: Number,
     tags: { type: [String], index: true },
     imageURLs: { type: [String], index: true },
     ownerId: String

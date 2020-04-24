@@ -3,21 +3,28 @@ services:
   coral-backend:
     build:
       context: .
-    depends_on:
-      - mongo
-    ports:
-      - "3000:3000"
-    networks:
-      - coral-backend
-  mongo:
-    image: "mongo:latest"
-    container_name: coral-db
+    container_name: 'coral-backend'
+    env_file: .env
     environment:
-      - MONGODB_DATABASE=coral-db
+      - MONGO_HOSTNAME=coral-db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+    ports:
+      - '3000:3000'
+    links:
+      - 'mongo'
+    depends_on:
+      - 'mongo'
+    networks:
+      - coral
+  mongo:
+    image: 'mongo:latest'
+    container_name: coral-db
+    environment: 
       - MONGO_INITDB_DATABASE=coral-db
     ports:
-      - "27017:27017"
+      - '27017:27017'
     networks:
-      - coral-backend
+      - coral
 networks:
-  coral-backend:
+  coral:

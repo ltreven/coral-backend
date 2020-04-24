@@ -17,6 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start_local": "node -r dotenv/config ./bin/www",
     "start": "node ./bin/www",
     "test": "DB_CONNECTION=mongodb://localhost:27017/coral-db node ./bin/www"
   },
