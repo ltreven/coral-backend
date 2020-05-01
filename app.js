@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const passport = require('passport');
 const morgan = require('morgan');
+const cors = require('cors');
 const logger = require('./config/winston');
 const peopleRouter = require('./routes/peopleRouter');
 const usersRouter = require('./routes/usersRouter');
@@ -17,6 +18,7 @@ const app = express();
 //app.set('view engine', 'jade');
 app.use(morgan("combined", { "stream": logger.stream }));
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
