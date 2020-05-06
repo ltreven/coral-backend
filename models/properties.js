@@ -4,6 +4,7 @@ const schema = new mongoose.Schema({
     type: String,
     rent: Number,
     size: Number,
+    sizeUnit: String,
     bedrooms: Number,
     bathrooms: Number,
     address: {
@@ -25,6 +26,7 @@ const schema = new mongoose.Schema({
     furnitured: Boolean,
     nearMetroStation: Boolean,
     description: String,
+    title: String,
     tags: { type: [String], index: true },
     imageURLs: { type: [String], index: true },
     ownerId: String
