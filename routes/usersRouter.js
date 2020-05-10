@@ -45,14 +45,14 @@ router.post('/signup', (req, res, next) => {
         }
     });
 });
-router.get('/login', passport.authenticate('local'), (req, res) => {
-    logger.info('Routing GET LOGIN - authenticates the user');
+router.post('/login', passport.authenticate('local'), (req, res) => {
+    logger.info('Routing POST LOGIN - authenticates the user');
     var token = authenticate.getToken({_id: req.user._id});
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.json({ success: true, token: token, status: 'User successfully logged in'});
 });
-router.get('/login/facebook', passport.authenticate('facebook-token'), (req, res) => {
+router.post('/login/facebook', passport.authenticate('facebook-token'), (req, res) => {
     logger.info('Routing GET LOGIN/FACEBOOK - authenticates the user');
     if (req.user) {
         var token = authenticate.getToken({_id: req.user._id});
