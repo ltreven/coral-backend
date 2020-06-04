@@ -23,6 +23,7 @@ const schema = new mongoose.Schema({
     furnitured: Boolean,
     nearMetroStation: Boolean,
     description: String,
+    status: String,
     title: String,
     tags: { type: [String], index: true },
     imageURLs: { type: [String], index: true },
