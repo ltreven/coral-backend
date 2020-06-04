@@ -17,7 +17,7 @@ router
   })
   .get((req, res, next) => {
     logger.info("Routing GET properties - returns properties collection");
-    Properties.find({})
+    Properties.find({status: 'published'})
       .then(
         properties => {
           res.statusCode = 200;

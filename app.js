@@ -5,17 +5,12 @@ const morgan = require('morgan');
 const cors = require('cors');
 const logger = require('./config/winston');
 const peopleRouter = require('./routes/peopleRouter');
+const locationsRouter = require('./routes/locationsRouter');
 const usersRouter = require('./routes/usersRouter');
 const propertiesRouter = require('./routes/propertiesRouter');
 
-//var cookieParser = require('cookie-parser');
-//var logger = require('morgan');
-
 const app = express();
 
-// view engine setup (Jade)
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
 app.use(morgan("combined", { "stream": logger.stream }));
 app.use(express.json());
 app.use(cors());
@@ -25,12 +20,14 @@ app.use(passport.initialize());
 app.use('/v1/people', peopleRouter);
 app.use('/v1/properties', propertiesRouter);
 app.use('/v1/users', usersRouter);
+app.use('/v1/locations', locationsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
+// Para permitir CORS:
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

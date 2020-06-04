@@ -8,15 +8,12 @@ const schema = new mongoose.Schema({
     bedrooms: Number,
     bathrooms: Number,
     address: {
-        typeOfStreet: String,
-        streetName: String,
-        buildingNumber: String,
-        floorNumber: String,
-        doorNumber: String,
+        formatted: String,
+        street: String,
+        streetNumber: String,
+        additionalInfo: String,
         postalCode: String,
         city: String,
-        province: String,
-        region: String,
         country: String,
         latitude: Number,
         longitude: Number
@@ -29,7 +26,7 @@ const schema = new mongoose.Schema({
     title: String,
     tags: { type: [String], index: true },
     imageURLs: { type: [String], index: true },
-    ownerId: String
+    ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {
     timestamps: true
 }
