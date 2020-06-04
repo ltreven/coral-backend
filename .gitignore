@@ -16,6 +16,7 @@ terraform.tfstate*
 .terraform/
 .terraform.tfstate.lock.info
 
+.env
 
 # Mac OS
 .DS_Store
