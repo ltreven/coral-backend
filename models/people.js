@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      required: true
-    },
     firstName: {
       type: String,
       required: true,
@@ -30,10 +26,6 @@ const schema = new mongoose.Schema(
       type: String,
       required: true
     },
-    eyeColor: {
-      type: String,
-      required: false
-    }
     //address: []
     //role (renter, owner?)
   },
@@ -42,7 +34,7 @@ const schema = new mongoose.Schema(
   }
 );
 
-schema.virtual("fullName").get(function() {
+schema.virtual("fullName").get(function () {
   return `${this.firstName} ${this.lastName}`;
 });
 
