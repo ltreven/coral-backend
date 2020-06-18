@@ -4,7 +4,6 @@ const passport = require('passport');
 const morgan = require('morgan');
 const cors = require('cors');
 const logger = require('./config/winston');
-const peopleRouter = require('./routes/peopleRouter');
 const locationsRouter = require('./routes/locationsRouter');
 const usersRouter = require('./routes/usersRouter');
 const propertiesRouter = require('./routes/propertiesRouter');
@@ -18,7 +17,6 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
-app.use('/v1/people', peopleRouter);
 app.use('/v1/properties', propertiesRouter);
 app.use('/v1/users', usersRouter);
 app.use('/v1/locations', locationsRouter);

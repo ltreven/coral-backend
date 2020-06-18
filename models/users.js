@@ -3,12 +3,7 @@ const passLocalMong = require('passport-local-mongoose');
 
 const schema = new mongoose.Schema({
     facebookId: String,
-    firstName: {
-        type: String,
-        required: false,
-        get: capitalizeFirstLetter
-    },
-    lastName: {
+    fullName: {
         type: String,
         required: false,
         get: capitalizeFirstLetter
@@ -30,10 +25,6 @@ const schema = new mongoose.Schema({
     timestamps: true
 }
 );
-
-schema.virtual("fullName").get(function () {
-    return `${this.firstName} ${this.lastName}`;
-});
 
 function capitalizeFirstLetter(v) {
     // Convert 'bob' -> 'Bob'

@@ -59,6 +59,21 @@ router
     res.end("DELETE operation not supported");
   });
 
+router.get("/myproperties", authenticate.verifyUser, (req, res, next) => {
+  logger.info("Routing GET my properties - returns properties collection of a specific owner");
+  console.log("user: ", req.user)
+  Properties.find({ownerId: req.user._id})
+    .then(
+      properties => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(properties);
+      },
+      err => next(err)
+    )
+    .catch(err => next(err));
+})
+
 router
   .route("/:propertyId")
   .all((req, res, next) => {

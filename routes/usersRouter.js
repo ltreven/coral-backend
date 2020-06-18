@@ -8,10 +8,9 @@ const router = express.Router();
 
 router.use(express.json());
 
-
 router.post('/signup', (req, res, next) => {
     logger.info('Routing POST SIGNUP - creates the user');
-    Users.register(new Users({ username: req.body.username }),
+    Users.register(new Users(req.body),
         req.body.password, (err, user) => {
             if (err) {
                 logger.info('Could not create user');
