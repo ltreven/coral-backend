@@ -26,7 +26,11 @@ const schema = new mongoose.Schema({
     status: String,
     title: String,
     tags: { type: [String], index: true },
-    imageURLs: { type: [String], index: true },
+    imageURLs: { 
+        type: [String], 
+        index: true,
+        default: ["https://www.ami.co.nz/images/Premier-House-new.png"]
+     },
     ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {
     timestamps: true

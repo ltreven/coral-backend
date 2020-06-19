@@ -49,6 +49,21 @@ router.post('/login/facebook', passport.authenticate('facebook-token'), (req, re
     }
 });
 
+router.get("/validateToken", authenticate.verifyUser, (req, res, next) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json({ success: true, status: 'User is logged in' });
+})
+
+router.post('/logout', authenticate.verifyUser, (req, res, next) => {
+    console.log("calling logout")
+    req.logout();
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json({ success: true, status: 'User successfully logged out' });
+});
+
+
 router.get("/:email", (req, res, next) => {
     logger.info("Routing GET User userId", req.params.email);
     Users.find({ username: req.params.email })
@@ -70,45 +85,5 @@ router.get('/', (req, res, next) => {
         })
         .catch((err) => next(err));
 })
-
-
-//   .post((req, res, next) => {
-//     logger.info("Routing POST people/:personId");
-//     res.statusCode = 403;
-//     res.end("POST operation not supported on /people/" + req.params.personId);
-//   })
-//   .put(authenticate.verifyUser, (req, res, next) => {
-//     logger.info("Routing PUT people/:personId", req.params.personId);
-//     People.findByIdAndUpdate(
-//       req.params.personId,
-//       {
-//         $set: req.body
-//       },
-//       { new: true }
-//     )
-//       .then(
-//         person => {
-//           res.statusCode = 200;
-//           res.setHeader("Content-Type", "application/json");
-//           res.json(person);
-//         },
-//         err => next(err)
-//       )
-//       .catch(err => next(err));
-//   })
-//   .delete(authenticate.verifyUser, (req, res, next) => {
-//     logger.info("Routing DELETE people/:personId", req.params.personId);
-//     // enhancement needed: do not DELETE physically. Create logical deletion
-//     People.findByIdAndRemove(req.params.personId)
-//       .then(
-//         resp => {
-//           res.statusCode = 200;
-//           res.setHeader("Content-Type", "application/json");
-//           res.json(resp);
-//         },
-//         err => next(err)
-//       )
-//       .catch(err => next(err));
-//   });
 
 module.exports = router;
