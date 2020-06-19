@@ -63,7 +63,15 @@ router.post('/logout', authenticate.verifyUser, (req, res, next) => {
     res.json({ success: true, status: 'User successfully logged out' });
 });
 
-
+router.put("/:id", (req, res, next) => {
+    Users.findByIdAndUpdate(req.params.id, req.body)
+    .then(user => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(user);
+    })
+    .catch(err => next(err));
+})
 router.get("/:email", (req, res, next) => {
     logger.info("Routing GET User userId", req.params.email);
     Users.find({ username: req.params.email })
