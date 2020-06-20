@@ -9,18 +9,10 @@ const schema = new mongoose.Schema({
         get: capitalizeFirstLetter
     },
     birthday: Date,
-    phoneCountryId: {
-        type: String,
-        required: false
-    },
-    phoneNumber: {
-        type: String,
-        required: false
-    },
-    aboutYou: {
-        type: String,
-        required: false
-    },
+    phoneCountryId: String,
+    phoneNumber: String,
+    aboutYou: String,
+    picture: String
 }, {
     timestamps: true
 }
