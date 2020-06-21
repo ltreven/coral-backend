@@ -8,7 +8,11 @@ const router = express.Router();
 router.use(express.json());
 
 router.get("/", (req, res, next) => {
-  Properties.find({ status: 'published' })
+  let filter = {}
+  if (req.query.status) {
+    filter = { status: req.query.status }
+  }
+  Properties.find(filter)
     .then(properties => {
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
