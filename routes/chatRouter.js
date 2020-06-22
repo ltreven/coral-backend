@@ -89,4 +89,54 @@ router.get("/:propertyId", authenticate.verifyUser, (req, res, next) => {
 
 })
 
+router.get("/:propertyId/chatlist", authenticate.verifyUser, (req, res, next) => {
+  logger.info("Routing GET chatlist for a specific property");
+  let from = req.user._id
+
+  Property.findById(req.params.propertyId)
+  .then(property => {
+    if (req.user._id == property.ownerId.toString()) {
+      logger.info("I am the owner looking from messages ")
+
+      const filter = {
+        property: req.params.propertyId
+      }
+      Chat.find(filter).sort({createdAt: -1}).populate('from', ['_id', 'fullName', 'picture'])
+      .then(messages => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        const contacts = []
+        const newMsgs = messages.filter(msg => {
+          if (contacts.indexOf(msg.from.toString()) < 0 
+            && msg.from._id.toString() != req.user._id) {
+            contacts.push(msg.from.toString())
+            console.log("added")
+            return true
+          }
+          console.log("not added")
+          return false
+        })
+
+        res.json(newMsgs.map(msg => (
+          {
+            from: msg.from,
+            message: msg.message,
+            createdAt: msg.createdAt
+          }
+        )));
+
+      })
+      .catch(err => next(err));
+  
+    } else {
+      res.statusCode = 401;
+      res.setHeader("Content-Type", "application/json");
+      res.json({ status: "forbidden"});
+      return;
+    }
+
+  })
+
+})
+
 module.exports = router;
